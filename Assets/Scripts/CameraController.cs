@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 namespace Tantan
@@ -11,6 +9,9 @@ namespace Tantan
         [SerializeField] private Transform m_followTransform;
         [SerializeField] private float m_distanceFromTarget = 200.0f;
         public UnityAction OnRotationChanged;
+        private float m_rotateProgress;
+
+        public bool IsRotating{get{return m_rotateProgress < 1.0f;}}
 
         enum RotationDirection {
             Left,
@@ -18,6 +19,7 @@ namespace Tantan
         }
 
         private Quaternion m_currentRotation;
+        private Quaternion m_startRotation;
         private Rotation m_rotation = Rotation.R_0;
         public Rotation GetRotation()
         {
@@ -26,6 +28,8 @@ namespace Tantan
 
         private void ChangeRotation(RotationDirection a_direction)
         {
+            m_rotateProgress = 0f;
+            m_startRotation = transform.rotation * Quaternion.Euler(0f,180,0f);
             switch (m_rotation)
             {
                 case Rotation.R_0:
@@ -61,9 +65,13 @@ namespace Tantan
             if(Input.GetKeyDown(KeyCode.RightArrow))
                 ChangeRotation(RotationDirection.Right);
 
+
+            if(m_rotateProgress >= 1f)
+                return;
             Quaternion targetRotation = Quaternion.AngleAxis(GetAngle(), Vector3.up);
 
-            m_currentRotation = Quaternion.Lerp(m_currentRotation, targetRotation, Time.deltaTime * m_speed);
+            m_rotateProgress += Time.deltaTime * m_speed;
+            m_currentRotation = Quaternion.Lerp(m_startRotation, targetRotation, m_rotateProgress);
             Vector3 direction = m_currentRotation * Vector3.forward;
             transform.position = m_followTransform.position + direction * m_distanceFromTarget;
 

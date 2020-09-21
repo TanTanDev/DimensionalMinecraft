@@ -7,7 +7,7 @@ namespace Tantan
     public class WorldGrid : MonoBehaviour
     {
         [SerializeField] private CameraController m_cameraController;
-        private const int DEFAULT_WORLD_SIZE = 16;
+        public const int DEFAULT_WORLD_SIZE = 16;
         // Loop through world objects and put them into the worldgrid vectors
         private List<List<List<PhysicsType>>> m_worldGrid;
         // generated grid based on camera rotation
@@ -85,13 +85,52 @@ namespace Tantan
                 }
                 case Rotation.R_90:
                 {
-                    for(int x = m_worldGrid.Count-1; x > 0; x--)
+                    //for(int x = m_worldGrid.Count-1; x > 0; x--)
+                    for(int x = 0; x < m_worldGrid.Count; x++)
                     {
                         for(int y = 0; y < m_worldGrid[x].Count; y++)
                         {
                             for(int z = 0; z < m_worldGrid[x][y].Count; z++)
                             {
-                                PhysicsType physicsType = m_worldGrid[z][y][x];
+                                PhysicsType physicsType = m_worldGrid[(m_worldGrid[x][y].Count -1 ) - z][y][(m_worldGrid.Count-1) - x];
+                                if(physicsType != PhysicsType.None)
+                                {
+                                    m_currentGrid[x][y] = physicsType;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+                case Rotation.R_180:
+                {
+                    for(int x = 0; x < m_worldGrid.Count; x++)
+                    {
+                        for(int y = 0; y < m_worldGrid[x].Count; y++)
+                        {
+                            for(int z = 0; z < m_worldGrid[x][y].Count ; z++)
+                            {
+                                PhysicsType physicsType = m_worldGrid[(m_worldGrid.Count-1)-x][y][z];
+                                if(physicsType != PhysicsType.None)
+                                {
+                                    m_currentGrid[x][y] = physicsType;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+                case Rotation.R_270:
+                {
+                    for(int x = 0; x < m_worldGrid.Count; x++)
+                    {
+                        for(int y = 0; y < m_worldGrid[x].Count; y++)
+                        {
+                            for(int z = 0; z < m_worldGrid[x][y].Count; z++)
+                            {
+                                PhysicsType physicsType = m_worldGrid[(m_worldGrid[x][y].Count -1 ) - z][y][x];
                                 if(physicsType != PhysicsType.None)
                                 {
                                     m_currentGrid[x][y] = physicsType;
@@ -127,8 +166,10 @@ namespace Tantan
                 for(int y = 0; y < m_currentGrid[x].Count; y++)
                 {
                     Color color = Color.black;
-                    if(m_currentGrid[x][y] != PhysicsType.None)
+                    if(m_currentGrid[x][y] == PhysicsType.Solid)
                         color = Color.red;
+                    if(m_currentGrid[x][y] == PhysicsType.Platform)
+                        color = Color.yellow;
                     Gizmos.color = color;
                     Gizmos.DrawWireCube(new Vector3(x,y,0f), scaleVector);
                 }
