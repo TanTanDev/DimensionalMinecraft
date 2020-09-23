@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Tantan
 {
@@ -16,8 +14,13 @@ namespace Tantan
        
         private void Update()
         {
+            // todo: this is very ugly schmugly
             if(m_cameraController.IsRotating)
+            {
+                Vector2Int BelowPlayer = GetPlayerPosition() - new Vector2Int(0, 1);
+                m_previousStandingOn = BelowPlayer;
                 return;
+            }
             // Check if standing on block
             if(Input.GetKeyDown(KeyCode.Space))
                 m_velocity.y = m_jumpStrength;
