@@ -18,6 +18,13 @@ namespace Tantan
             Right,
         }
 
+        enum CameraState
+        {
+            Following,
+            Rotating,
+        }
+
+        private CameraState m_cameraState;
         private Quaternion m_currentRotation;
         private Quaternion m_startRotation;
         private Rotation m_rotation = Rotation.R_0;
@@ -29,6 +36,7 @@ namespace Tantan
         private void ChangeRotation(RotationDirection a_direction)
         {
             m_rotateProgress = 0f;
+            m_cameraState = CameraState.Rotating;
             m_startRotation = transform.rotation * Quaternion.Euler(0f,180,0f);
             switch (m_rotation)
             {
@@ -65,14 +73,24 @@ namespace Tantan
             if(Input.GetKeyDown(KeyCode.RightArrow))
                 ChangeRotation(RotationDirection.Right);
 
+            if(m_cameraState == CameraState.Following)
+            {
+                Vector3 targetLocation = m_followTransform.position;
+                targetLocation -= transform.forward * m_distanceFromTarget;
+                transform.position = Vector3.Lerp(transform.position, targetLocation, Time.deltaTime * m_speed);
+            }
 
             if(m_rotateProgress >= 1f)
                 return;
             Quaternion targetRotation = Quaternion.AngleAxis(GetAngle(), Vector3.up);
 
             m_rotateProgress += Time.deltaTime * m_speed;
+            if(m_rotateProgress >= 1f)
+                m_cameraState = CameraState.Following;
             m_currentRotation = Quaternion.Lerp(m_startRotation, targetRotation, m_rotateProgress);
             Vector3 direction = m_currentRotation * Vector3.forward;
+            Vector3 targetPos = m_followTransform.position + direction * m_distanceFromTarget;
+            //transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * m_speed);
             transform.position = m_followTransform.position + direction * m_distanceFromTarget;
 
             Vector3 relativePos = m_followTransform.position - transform.position;
