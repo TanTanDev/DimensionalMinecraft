@@ -28,6 +28,7 @@ namespace Tantan
         private Quaternion m_currentRotation;
         private Quaternion m_startRotation;
         private Rotation m_rotation = Rotation.R_0;
+        private Vector3 m_lerpedFollowPosition;
         public Rotation GetRotation()
         {
             return m_rotation;
@@ -38,6 +39,7 @@ namespace Tantan
             m_rotateProgress = 0f;
             m_cameraState = CameraState.Rotating;
             m_startRotation = transform.rotation * Quaternion.Euler(0f,180,0f);
+            m_lerpedFollowPosition = transform.position + transform.forward * m_distanceFromTarget;
             switch (m_rotation)
             {
                 case Rotation.R_0:
@@ -56,7 +58,8 @@ namespace Tantan
             OnRotationChanged.Invoke();
         }
 
-        private float GetAngle(){
+        private float GetAngle()
+        {
             if(m_rotation == Rotation.R_0)
                 return 0f;
             if(m_rotation == Rotation.R_90)
@@ -89,11 +92,11 @@ namespace Tantan
                 m_cameraState = CameraState.Following;
             m_currentRotation = Quaternion.Lerp(m_startRotation, targetRotation, m_rotateProgress);
             Vector3 direction = m_currentRotation * Vector3.forward;
-            Vector3 targetPos = m_followTransform.position + direction * m_distanceFromTarget;
-            //transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * m_speed);
-            transform.position = m_followTransform.position + direction * m_distanceFromTarget;
 
-            Vector3 relativePos = m_followTransform.position - transform.position;
+            m_lerpedFollowPosition = Vector3.Lerp(m_lerpedFollowPosition, m_followTransform.position, Time.deltaTime * m_speed); 
+            transform.position = m_lerpedFollowPosition + direction * m_distanceFromTarget;
+
+            Vector3 relativePos = m_lerpedFollowPosition - transform.position;
             Quaternion cameraRotation = Quaternion.LookRotation(relativePos);
             transform.rotation = cameraRotation;
         }
