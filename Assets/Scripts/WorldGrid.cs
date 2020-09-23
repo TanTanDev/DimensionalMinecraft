@@ -9,44 +9,44 @@ namespace Tantan
         [SerializeField] private CameraController m_cameraController;
         public const int DEFAULT_WORLD_SIZE = 16;
         // Loop through world objects and put them into the worldgrid vectors
-        private List<List<List<PhysicsType>>> m_worldGrid;
+        private List<List<List<PhysicsObject>>> m_worldGrid;
         // generated grid based on camera rotation
 
-        public struct TypeAndDepth
+        public struct SideViewData
         {
-            public TypeAndDepth(PhysicsType a_type, int a_depth) 
+            public SideViewData(PhysicsObject a_physicsObject, int a_depth) 
             {
-                Type = a_type;
+                PhysicsObject = a_physicsObject;
                 Depth = a_depth;
             }
-            public void Set(PhysicsType a_type, int a_depth)
+            public void Set(PhysicsObject a_physicsObject, int a_depth)
             {
-                Type = a_type;
+                PhysicsObject = a_physicsObject;
                 Depth = a_depth;
             }
-            public PhysicsType Type;
+            public PhysicsObject PhysicsObject;
             public int Depth;
         }
-        private List<List<TypeAndDepth>> m_currentGrid;
+        private List<List<SideViewData>> m_currentGrid;
 
         public void Construct()
         {
-            m_worldGrid = new List<List<List<PhysicsType>>>(DEFAULT_WORLD_SIZE);
-            m_currentGrid = new List<List<TypeAndDepth>>(DEFAULT_WORLD_SIZE);
+            m_worldGrid = new List<List<List<PhysicsObject>>>(DEFAULT_WORLD_SIZE);
+            m_currentGrid = new List<List<SideViewData>>(DEFAULT_WORLD_SIZE);
             for(int x = 0; x < m_currentGrid.Capacity; x++)
             {
-                m_currentGrid.Add(new List<TypeAndDepth>(DEFAULT_WORLD_SIZE));
+                m_currentGrid.Add(new List<SideViewData>(DEFAULT_WORLD_SIZE));
                 for(int y = 0; y < m_currentGrid[x].Capacity; y++)
-                    m_currentGrid[x].Add(new TypeAndDepth(PhysicsType.None, 0));
+                    m_currentGrid[x].Add(new SideViewData(null, 0));
             }
             for(int x = 0; x < m_worldGrid.Capacity; x++)
             {
-                m_worldGrid.Add(new List<List<PhysicsType>>(DEFAULT_WORLD_SIZE));
+                m_worldGrid.Add(new List<List<PhysicsObject>>(DEFAULT_WORLD_SIZE));
                 for(int y = 0; y < m_worldGrid.Capacity; y++)
                 {
-                    m_worldGrid[x].Add(new List<PhysicsType>(DEFAULT_WORLD_SIZE));
+                    m_worldGrid[x].Add(new List<PhysicsObject>(DEFAULT_WORLD_SIZE));
                     for(int z = 0; z < m_worldGrid[x][y].Capacity; z++)
-                        m_worldGrid[x][y].Add(PhysicsType.None);
+                        m_worldGrid[x][y].Add(null);
                 }
             }
         }
@@ -58,23 +58,23 @@ namespace Tantan
             for(int x = 0; x < m_worldGrid.Count; x++)
                 for(int z = 0; z < m_worldGrid[x].Count; z++)
                     for(int y = 0; y < m_worldGrid.Count; y++)
-                        m_worldGrid[x][z][y] = PhysicsType.None;
+                        m_worldGrid[x][z][y] = null;
 
             for(int i = 0; i < physicsObjects.Length; i++)
             {
                 PhysicsObject physicsObject = physicsObjects[i];
                 Vector3 positionF = physicsObject.transform.position;
                 Vector3Int position = new Vector3Int((int)positionF.x, (int)positionF.y, (int)positionF.z);
-                m_worldGrid[position.x][position.y][position.z] = physicsObject.PhysicsType;
+                m_worldGrid[position.x][position.y][position.z] = physicsObject;
             }
         }
 
         private void GenerateCurrentGrid()
         {
-            // teset
+            // reset
             for(int x = 0; x < m_currentGrid.Count; x++)
                 for(int y = 0; y < m_currentGrid[x].Count; y++)
-                    m_currentGrid[x][y] = new TypeAndDepth(PhysicsType.None, 0);
+                    m_currentGrid[x][y] = new SideViewData(null, 0);
 
             // calculate based camera rotation
             switch(m_cameraController.GetRotation())
@@ -87,10 +87,10 @@ namespace Tantan
                         {
                             for(int z = m_worldGrid[x][y].Count-1; z > 0 ; z--)
                             {
-                                PhysicsType physicsType = m_worldGrid[x][y][z];
-                                if(physicsType != PhysicsType.None)
+                                PhysicsObject physicsObject = m_worldGrid[x][y][z];
+                                if(physicsObject != null && physicsObject.PhysicsType != PhysicsType.None)
                                 {
-                                    m_currentGrid[x][y] = new TypeAndDepth(physicsType, z);
+                                    m_currentGrid[x][y] = new SideViewData(physicsObject, z);
                                     break;
                                 }
                             }
@@ -107,10 +107,10 @@ namespace Tantan
                         {
                             for(int z = 0; z < m_worldGrid[x][y].Count; z++)
                             {
-                                PhysicsType physicsType = m_worldGrid[(m_worldGrid[x][y].Count -1) - z][y][(m_worldGrid.Count-1) - x];
-                                if(physicsType != PhysicsType.None)
+                                PhysicsObject physicsObject = m_worldGrid[(m_worldGrid[x][y].Count -1) - z][y][(m_worldGrid.Count-1) - x];
+                                if(physicsObject != null && physicsObject.PhysicsType != PhysicsType.None)
                                 {
-                                    m_currentGrid[x][y] = new TypeAndDepth(physicsType, (m_worldGrid[x][y].Count -1) - z);
+                                    m_currentGrid[x][y] = new SideViewData(physicsObject, (m_worldGrid[x][y].Count -1) - z);
                                     break;
                                 }
                             }
@@ -126,10 +126,11 @@ namespace Tantan
                         {
                             for(int z = 0; z < m_worldGrid[x][y].Count ; z++)
                             {
-                                PhysicsType physicsType = m_worldGrid[(m_worldGrid.Count-1)-x][y][z];
-                                if(physicsType != PhysicsType.None)
+                                PhysicsObject physicsObject = m_worldGrid[(m_worldGrid.Count-1)-x][y][z];
+                                if(physicsObject != null && physicsObject.PhysicsType != PhysicsType.None)
                                 {
-                                    m_currentGrid[x][y] = new TypeAndDepth(physicsType, z);
+                                    PhysicsType physicsType = physicsObject.PhysicsType;
+                                    m_currentGrid[x][y] = new SideViewData(physicsObject, z);
                                     break;
                                 }
                             }
@@ -145,11 +146,11 @@ namespace Tantan
                         {
                             for(int z = 0; z < m_worldGrid[x][y].Count; z++)
                             {
-                                PhysicsType physicsType = m_worldGrid[z][y][x];
-                                //PhysicsType physicsType = m_worldGrid[(m_worldGrid[x][y].Count -1) - z][y][x];
-                                if(physicsType != PhysicsType.None)
+                                PhysicsObject physicsObject = m_worldGrid[z][y][x];
+                                if(physicsObject != null && physicsObject.PhysicsType != PhysicsType.None)
                                 {
-                                    m_currentGrid[x][y] = new TypeAndDepth(physicsType, z);
+                                    PhysicsType physicsType = physicsObject.PhysicsType;
+                                    m_currentGrid[x][y] = new SideViewData(physicsObject, z);
                                     break;
                                 }
                             }
@@ -168,9 +169,17 @@ namespace Tantan
             GenerateCurrentGrid();
         }
 
-        public PhysicsType GetPhysicsTypeAtLocation(Vector2Int a_location) 
+        public PhysicsType? GetPhysicsTypeAtLocation(Vector2Int a_location) 
         {
-            return m_currentGrid[a_location.x][a_location.y].Type;
+            SideViewData sideViewData = m_currentGrid[a_location.x][a_location.y];
+            if(sideViewData.PhysicsObject == null)
+                return null;
+            return sideViewData.PhysicsObject.PhysicsType;
+        }
+        
+        public PhysicsObject GetPhysicsObjectAtLocation(Vector2Int a_location) 
+        {
+            return m_currentGrid[a_location.x][a_location.y].PhysicsObject;
         }
 
         public int GetPhysicsDepthAtLocation(Vector2Int a_location) 
@@ -189,9 +198,10 @@ namespace Tantan
                 for(int y = 0; y < m_currentGrid[x].Count; y++)
                 {
                     Color color = Color.black;
-                    if(m_currentGrid[x][y].Type == PhysicsType.Solid)
+                    SideViewData sideViewData = m_currentGrid[x][y];
+                    if(sideViewData.PhysicsObject != null && sideViewData.PhysicsObject.PhysicsType == PhysicsType.Solid)
                         color = Color.red;
-                    if(m_currentGrid[x][y].Type == PhysicsType.Platform)
+                    if(sideViewData.PhysicsObject != null && sideViewData.PhysicsObject.PhysicsType == PhysicsType.Platform)
                         color = Color.yellow;
                     Gizmos.color = color;
                     Gizmos.DrawWireCube(new Vector3(x,y,0f), scaleVector);

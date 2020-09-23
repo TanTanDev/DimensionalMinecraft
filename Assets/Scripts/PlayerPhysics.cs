@@ -39,9 +39,9 @@ namespace Tantan
             if(m_velocity.y < 0f)
             {
                 Vector2Int BelowPlayer = GetPlayerPosition() - new Vector2Int(0, 1);
-                PhysicsType belowType = m_worldGrid.GetPhysicsTypeAtLocation(BelowPlayer);
+                PhysicsType? belowType = m_worldGrid.GetPhysicsTypeAtLocation(BelowPlayer);
                 // Todo, change depth
-                if(belowType != PhysicsType.None)
+                if(belowType.HasValue && belowType.Value != PhysicsType.None)
                 {
                     m_velocity.y = 0f;
                     if(m_previousStandingOn != BelowPlayer)
@@ -49,6 +49,7 @@ namespace Tantan
                         // Depth change to the new location depth
                         int belowDepth = m_worldGrid.GetPhysicsDepthAtLocation(BelowPlayer);
                         SetWorldFromDepth(belowDepth);
+                        Debug.Log("depth changed");
                         //transform.position = DepthOffset;
                     }
                     m_previousStandingOn = BelowPlayer;

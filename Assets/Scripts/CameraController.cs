@@ -100,6 +100,33 @@ namespace Tantan
             Quaternion cameraRotation = Quaternion.LookRotation(relativePos);
             transform.rotation = cameraRotation;
         }
-    }
 
+        public Vector3 ConvertToVisualPosition(Vector3 a_current)
+        {
+            switch (m_rotation)
+            {
+                case Rotation.R_0:
+                {
+                    a_current = new Vector3(a_current.x, a_current.y, a_current.z);
+                    break;
+                }
+                case Rotation.R_90:
+                {
+                    a_current = new Vector3(15.0f-a_current.z, a_current.y, a_current.x);
+                    break;
+                }
+                case Rotation.R_180:
+                {
+                    a_current = new Vector3(15.0f-a_current.x, a_current.y, a_current.z);
+                    break;
+                }
+                case Rotation.R_270:
+                {
+                    a_current = new Vector3(a_current.z, a_current.y, -a_current.x);
+                    break;
+                }
+            }
+            return a_current;
+        }
+    }
 }
