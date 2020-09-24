@@ -48,13 +48,16 @@
             float2 sample_broken = IN.uv_MainTex;
             //float2 sample_broken = pointUV;
 
+            float is_broken_multiplier = min(_Brokeness * 99.0f, 1.0f);
+
             // normalize position regardles where in the 4 corners it is
             sample_broken %= 0.5f;
             sample_broken *= 2.0f;
             sample_broken.x /= 6.0f;
             _Brokeness = min(_Brokeness, 0.999f);
             sample_broken.x += floor(_Brokeness*6.0f)*0.16666f;
-            c *= tex2D(_BreakTex, sample_broken);
+            c *= tex2D(_BreakTex, sample_broken) * is_broken_multiplier + 1.0f * (1.0 - is_broken_multiplier);
+
             o.Albedo = c.rgb;
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;

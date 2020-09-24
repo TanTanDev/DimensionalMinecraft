@@ -122,11 +122,35 @@ namespace Tantan
                 }
                 case Rotation.R_270:
                 {
-                    a_current = new Vector3(a_current.z, a_current.y, -a_current.x);
+                    a_current = new Vector3(a_current.z, a_current.y, a_current.x);
                     break;
                 }
             }
             return a_current;
+        }
+
+        public Vector3 GetWorldFromDepth(Vector3 a_world, float depth)
+        {
+            switch (m_rotation)
+            {
+                case Rotation.R_0:
+                {
+                    return new Vector3(a_world.x, a_world.y, depth);
+                }
+                case Rotation.R_90:
+                {
+                    return new Vector3(depth, a_world.y, a_world.z); 
+                }
+                case Rotation.R_180:
+                {
+                    return new Vector3(a_world.x, a_world.y, depth); 
+                }
+                case Rotation.R_270:
+                {
+                    return new Vector3(depth, a_world.y, a_world.z); 
+                }
+            }
+            return Vector3.zero;
         }
     }
 }

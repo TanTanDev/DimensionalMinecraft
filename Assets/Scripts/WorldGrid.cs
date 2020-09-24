@@ -51,6 +51,18 @@ namespace Tantan
             }
         }
 
+        public void RemoveAt(Vector3Int a_worldIndex)
+        {
+            m_worldGrid[a_worldIndex.x][a_worldIndex.y][a_worldIndex.z] = null;
+            GenerateCurrentGrid();
+        }
+
+        public void AddAt(Vector3Int a_worldIndex, PhysicsObject a_physicsObject)
+        {
+            m_worldGrid[a_worldIndex.x][a_worldIndex.y][a_worldIndex.z] = a_physicsObject;
+            GenerateCurrentGrid();
+        }
+
         public void Generate() {
             PhysicsObject[] physicsObjects = GameObject.FindObjectsOfType<PhysicsObject>();
             // int extentsX, extentsY, extentsZ = 0;
