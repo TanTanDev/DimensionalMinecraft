@@ -4,7 +4,7 @@ namespace Tantan
 {
     public class PlayerPhysics : MonoBehaviour
     {
-        [SerializeField] private WorldGrid m_worldGrid;
+        [SerializeField] private WorldGridScriptable m_worldGridScriptable;
         [SerializeField] private CameraController m_cameraController;
         [SerializeField] private float m_gravity = 0.5f;
         [SerializeField] private float m_jumpStrength = 0.9f;
@@ -39,7 +39,7 @@ namespace Tantan
             if(m_velocity.y < 0f)
             {
                 Vector2Int BelowPlayer = GetPlayerPosition() - new Vector2Int(0, 1);
-                PhysicsType? belowType = m_worldGrid.GetPhysicsTypeAtLocation(BelowPlayer);
+                PhysicsType? belowType = m_worldGridScriptable.WorldGrid.GetPhysicsTypeAtLocation(BelowPlayer);
                 // Todo, change depth
                 if(belowType.HasValue && belowType.Value != PhysicsType.None)
                 {
@@ -47,7 +47,7 @@ namespace Tantan
                     if(m_previousStandingOn != BelowPlayer)
                     {
                         // Depth change to the new location depth
-                        int belowDepth = m_worldGrid.GetPhysicsDepthAtLocation(BelowPlayer);
+                        int belowDepth = m_worldGridScriptable.WorldGrid.GetPhysicsDepthAtLocation(BelowPlayer);
                         SetWorldFromDepth(belowDepth);
                         Debug.Log("depth changed");
                         //transform.position = DepthOffset;

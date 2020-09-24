@@ -7,6 +7,7 @@ namespace Tantan
     public class WorldGrid : MonoBehaviour
     {
         [SerializeField] private CameraController m_cameraController;
+        [SerializeField] private WorldGridScriptable m_worldScriptScriptable;
         public const int DEFAULT_WORLD_SIZE = 16;
         // Loop through world objects and put them into the worldgrid vectors
         private List<List<List<PhysicsObject>>> m_worldGrid;
@@ -175,6 +176,7 @@ namespace Tantan
 
         private void Awake()
         {
+            m_worldScriptScriptable.WorldGrid = this;
             m_cameraController.OnRotationChanged += GenerateCurrentGrid;
             Construct();
             Generate();

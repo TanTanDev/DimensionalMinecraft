@@ -8,7 +8,7 @@ namespace Tantan
         [SerializeField] private Renderer m_renderer;
         [SerializeField] private string m_brokenessShaderName = "_Brokeness";
         [SerializeField] private float m_breakSpeed = 0.5f;
-        [SerializeField] private WorldGrid m_worldGrid;
+        [SerializeField] private WorldGridScriptable m_worldGridScriptable;
 
         public PhysicsType PhysicsType { get{ return m_physicsType; }}
         private float m_brokeness;
@@ -26,7 +26,7 @@ namespace Tantan
             m_brokeness += Time.deltaTime * m_breakSpeed;
             if(m_brokeness > 1.0f)
             {
-                m_worldGrid.RemoveAt(new Vector3Int((int)(transform.position.x+0.5f), (int)(transform.position.y +0.5f), (int)(transform.position.z + 0.5f)));
+                m_worldGridScriptable.WorldGrid.RemoveAt(new Vector3Int((int)(transform.position.x+0.5f), (int)(transform.position.y +0.5f), (int)(transform.position.z + 0.5f)));
                 Destroy(this.gameObject);
             }
         }

@@ -96,3 +96,5 @@ MonoBehaviour:
   m_renderer: {fileID: 5622863778630435237}
   m_brokenessShaderName: _Brokeness
   m_breakSpeed: 1
+  m_worldGridScriptable: {fileID: 11400000, guid: ad0d0882b064ae945befd40618698801,
+    type: 2}
