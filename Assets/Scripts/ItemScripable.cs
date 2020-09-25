@@ -6,6 +6,7 @@ namespace Tantan
     public class ItemScripable : ScriptableObject
     {
         public Texture m_imageIcon;
+        public Texture BlockTexture;
         public PhysicsObject m_blockPrefab;   
     }
 }

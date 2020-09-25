@@ -5,6 +5,8 @@ namespace Tantan
     public class PhysicsObject: MonoBehaviour
     {
         [SerializeField] private PhysicsType m_physicsType;
+        [SerializeField] private ItemScripable m_item;
+        [SerializeField] private ItemDrop m_itemDropPrefab;
         [SerializeField] private Renderer m_renderer;
         [SerializeField] private string m_brokenessShaderName = "_Brokeness";
         [SerializeField] private float m_breakSpeed = 0.5f;
@@ -26,10 +28,16 @@ namespace Tantan
             m_brokeness += Time.deltaTime * m_breakSpeed;
             if(m_brokeness > 1.0f)
             {
+                // Spawn item drop
+                ItemDrop itemDrop = Instantiate(m_itemDropPrefab, transform.position, Quaternion.identity);
+                itemDrop.Setup(m_item.BlockTexture);
+
+                // Update world collision
                 m_worldGridScriptable.WorldGrid.RemoveAt(new Vector3Int((int)(transform.position.x+0.5f), (int)(transform.position.y +0.5f), (int)(transform.position.z + 0.5f)));
                 Destroy(this.gameObject);
             }
         }
+
 
         private void LateUpdate()
         {

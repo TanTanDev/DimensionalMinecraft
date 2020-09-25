@@ -93,6 +93,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_physicsType: 1
+  m_item: {fileID: 11400000, guid: e9907d3e01feafc48bcf550e5a85f531, type: 2}
+  m_itemDropPrefab: {fileID: 3408479927148009519, guid: 6ebe0d1adb6862e449f27310480c52a3,
+    type: 3}
   m_renderer: {fileID: 5622863778630435237}
   m_brokenessShaderName: _Brokeness
   m_breakSpeed: 1

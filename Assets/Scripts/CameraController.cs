@@ -6,6 +6,7 @@ namespace Tantan
     public class CameraController : MonoBehaviour
     {
         [SerializeField] private float m_speed = 180.0f;
+        [SerializeField] private CameraControllerScriptable m_cameraControllerScriptable;
         [SerializeField] private Transform m_followTransform;
         [SerializeField] private float m_distanceFromTarget = 200.0f;
         public UnityAction OnRotationChanged;
@@ -32,6 +33,11 @@ namespace Tantan
         public Rotation GetRotation()
         {
             return m_rotation;
+        }
+
+        private void Awake()
+        {
+            m_cameraControllerScriptable.CameraController = this;
         }
 
         private void ChangeRotation(RotationDirection a_direction)
@@ -151,6 +157,33 @@ namespace Tantan
                 }
             }
             return Vector3.zero;
+        }
+        public Vector3 ConvertToVisualDelta(Vector3 a_delta)
+        {
+            switch (m_rotation)
+            {
+                case Rotation.R_0:
+                {
+                    a_delta = new Vector3(-a_delta.x, a_delta.y, a_delta.z);
+                    break;
+                }
+                case Rotation.R_90:
+                {
+                    a_delta = new Vector3(a_delta.z, a_delta.y, a_delta.x);
+                    break;
+                }
+                case Rotation.R_180:
+                {
+                    a_delta = new Vector3(a_delta.x, a_delta.y, a_delta.z);
+                    break;
+                }
+                case Rotation.R_270:
+                {
+                    a_delta = new Vector3(a_delta.z, a_delta.y, -a_delta.x);
+                    break;
+                }
+            }
+            return a_delta;
         }
     }
 }
