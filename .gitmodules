@@ -1,0 +1,3 @@
+[submodule "Assets/Plugins/ScriptableReactive"]
+	path = Assets/Plugins/ScriptableReactive
+	url = https://github.com/TanTanDev/ScriptableReactive.git

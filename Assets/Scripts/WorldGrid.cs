@@ -8,7 +8,7 @@ namespace Tantan
     {
         [SerializeField] private CameraController m_cameraController;
         [SerializeField] private WorldGridScriptable m_worldScriptScriptable;
-        public const int DEFAULT_WORLD_SIZE = 16;
+        public const int DEFAULT_WORLD_SIZE = 64;
         // Loop through world objects and put them into the worldgrid vectors
         private List<List<List<PhysicsObject>>> m_worldGrid;
         // generated grid based on camera rotation

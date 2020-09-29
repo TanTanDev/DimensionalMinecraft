@@ -158,6 +158,7 @@ namespace Tantan
             }
             return Vector3.zero;
         }
+
         public Vector3 ConvertToVisualDelta(Vector3 a_delta)
         {
             switch (m_rotation)

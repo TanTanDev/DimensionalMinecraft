@@ -5,7 +5,7 @@ namespace Tantan
     public class PhysicsObject: MonoBehaviour
     {
         [SerializeField] private PhysicsType m_physicsType;
-        [SerializeField] private ItemScripable m_item;
+        [SerializeField] private ItemScriptable m_item;
         [SerializeField] private ItemDrop m_itemDropPrefab;
         [SerializeField] private Renderer m_renderer;
         [SerializeField] private string m_brokenessShaderName = "_Brokeness";
@@ -23,6 +23,12 @@ namespace Tantan
             m_brokenessHash = Shader.PropertyToID(m_brokenessShaderName);
         }
 
+        public void Setup(ItemScriptable a_item)
+        {
+            m_renderer.material.SetTexture("_MainTex", a_item.BlockTexture);
+            m_item = a_item;
+        }
+
         public void OnHold()
         {
             m_brokeness += Time.deltaTime * m_breakSpeed;
@@ -30,7 +36,7 @@ namespace Tantan
             {
                 // Spawn item drop
                 ItemDrop itemDrop = Instantiate(m_itemDropPrefab, transform.position, Quaternion.identity);
-                itemDrop.Setup(m_item.BlockTexture);
+                itemDrop.Setup(m_item);
 
                 // Update world collision
                 m_worldGridScriptable.WorldGrid.RemoveAt(new Vector3Int((int)(transform.position.x+0.5f), (int)(transform.position.y +0.5f), (int)(transform.position.z + 0.5f)));

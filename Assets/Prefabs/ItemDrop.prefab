@@ -49,6 +49,11 @@ MonoBehaviour:
     type: 2}
   m_worldScriptable: {fileID: 11400000, guid: ad0d0882b064ae945befd40618698801, type: 2}
   m_gravity: 8.28
+  m_pickupItemEvent: {fileID: 11400000, guid: 24a11e159694b044faf5e47e03bbcdb7, type: 2}
+  m_playerPos: {fileID: 11400000, guid: 150fdf2da0003fe4fa592fb4a1322b8f, type: 2}
+  m_magnetizeDistance: 3
+  m_pickupDistance: 0.1
+  m_magnetizedSpeed: 10
 --- !u!1001 &3408479927268863658
 PrefabInstance:
   m_ObjectHideFlags: 0

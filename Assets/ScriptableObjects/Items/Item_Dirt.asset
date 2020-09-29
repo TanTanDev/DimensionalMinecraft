@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f672979456606849890c4a84201ed7a, type: 3}
   m_Name: Item_Dirt
   m_EditorClassIdentifier: 
+  Name: Dirt
   m_imageIcon: {fileID: 2800000, guid: 68afa8ee650ecf3468ac2bd5539f2435, type: 3}
   BlockTexture: {fileID: 2800000, guid: 68afa8ee650ecf3468ac2bd5539f2435, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,

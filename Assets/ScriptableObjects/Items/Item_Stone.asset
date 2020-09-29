@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f672979456606849890c4a84201ed7a, type: 3}
   m_Name: Item_Stone
   m_EditorClassIdentifier: 
+  Name: Stone
   m_imageIcon: {fileID: 2800000, guid: 3cd35d372e709804ca312c9fb4df216e, type: 3}
+  BlockTexture: {fileID: 2800000, guid: 3cd35d372e709804ca312c9fb4df216e, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}

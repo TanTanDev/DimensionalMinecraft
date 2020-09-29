@@ -49,8 +49,6 @@ namespace Tantan
                         // Depth change to the new location depth
                         int belowDepth = m_worldGridScriptable.WorldGrid.GetPhysicsDepthAtLocation(BelowPlayer);
                         SetWorldFromDepth(belowDepth);
-                        Debug.Log("depth changed");
-                        //transform.position = DepthOffset;
                     }
                     m_previousStandingOn = BelowPlayer;
                 }

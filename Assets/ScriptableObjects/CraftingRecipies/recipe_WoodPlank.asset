@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf46e191d3bc5954b89cae8fee008be1, type: 3}
+  m_Name: recipe_WoodPlank
+  m_EditorClassIdentifier: 
+  ItemToCraft: {fileID: 11400000, guid: 7ec29c241e32fec47a39611467e8656d, type: 2}
+  ItemsToGet: 4
+  RequiredItems:
+  - Item: {fileID: 11400000, guid: 198b4cf3d0facef429618ec4101e20cc, type: 2}
+    Amount: 1
