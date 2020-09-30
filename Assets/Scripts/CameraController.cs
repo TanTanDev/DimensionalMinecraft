@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using TanTanTools.Audio;
 
 namespace Tantan
 {
@@ -9,6 +10,8 @@ namespace Tantan
         [SerializeField] private CameraControllerScriptable m_cameraControllerScriptable;
         [SerializeField] private Transform m_followTransform;
         [SerializeField] private float m_distanceFromTarget = 200.0f;
+        [Zenject.Inject] private IAudioManager m_audioManager;
+        [SerializeField] private ScriptableAudioAsset m_dimensionChangeSound;
         public UnityAction OnRotationChanged;
         private float m_rotateProgress;
 
@@ -42,6 +45,7 @@ namespace Tantan
 
         private void ChangeRotation(RotationDirection a_direction)
         {
+            m_audioManager.PlayAudio(m_dimensionChangeSound);
             m_rotateProgress = 0f;
             m_cameraState = CameraState.Rotating;
             m_startRotation = transform.rotation * Quaternion.Euler(0f,180,0f);
@@ -64,7 +68,7 @@ namespace Tantan
             OnRotationChanged.Invoke();
         }
 
-        private float GetAngle()
+        public float GetAngle()
         {
             if(m_rotation == Rotation.R_0)
                 return 0f;
@@ -118,12 +122,12 @@ namespace Tantan
                 }
                 case Rotation.R_90:
                 {
-                    a_current = new Vector3(15.0f-a_current.z, a_current.y, a_current.x);
+                    a_current = new Vector3((WorldGrid.DEFAULT_WORLD_SIZE-1.0f)-a_current.z, a_current.y, a_current.x);
                     break;
                 }
                 case Rotation.R_180:
                 {
-                    a_current = new Vector3(15.0f-a_current.x, a_current.y, a_current.z);
+                    a_current = new Vector3((WorldGrid.DEFAULT_WORLD_SIZE-1.0f)-a_current.x, a_current.y, a_current.z);
                     break;
                 }
                 case Rotation.R_270:

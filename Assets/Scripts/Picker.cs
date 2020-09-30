@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using Zenject;
+using TanTanTools.Audio;
 
 namespace Tantan
 {
@@ -9,6 +11,16 @@ namespace Tantan
         [SerializeField] private CameraController m_cameraController;
         [SerializeField] private GameObject m_grassPrefab;
         [SerializeField] private InventoryScriptable m_inventoryScriptable;
+        [SerializeField] private Animator m_currentAnimator;
+        [SerializeField] private ScriptableAudioAsset m_breakAudio;
+        [SerializeField] private ScriptableAudioAsset m_placeAudio;
+        [SerializeField] private ScriptableAudioAsset m_noAudio;
+        [Inject] private IAudioManager m_audioManager;
+
+        public void SetAnimator(Animator a_animator)
+        {
+            m_currentAnimator = a_animator;
+        }
 
         private void PerformBreak()
         {
@@ -16,15 +28,20 @@ namespace Tantan
             Vector3 gridPosition = m_cameraController.ConvertToVisualPosition(worldPos);
             PhysicsObject physicsObject = m_worldGrid.GetPhysicsObjectAtLocation(new Vector2Int((int)(gridPosition.x + 0.5f), (int)(gridPosition.y + 0.5f)));
             if(physicsObject == null)
+            {
+                m_audioManager.StopAudio(m_breakAudio);
                 return;
+            }
             physicsObject.OnHold();
+            m_currentAnimator.SetTrigger("Place");
+            m_audioManager.PlayAudio(m_breakAudio, true);
         }
 
         private void PerformPlace()
         {
             if(!m_inventoryScriptable.Inventory.CanPlace())
             {
-                Debug.Log("invoek can't place event so sound can play");
+                m_audioManager.PlayAudio(m_noAudio);
                 return;
             }
             Vector3 worldPos = m_currentCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -62,12 +79,16 @@ namespace Tantan
             newPhysicsObject.Setup(holdingItem);
             m_inventoryScriptable.Inventory.DecreaseHoldingItem();
             m_worldGrid.AddAt(new Vector3Int((int)spawnPosWorld.x, (int)spawnPosWorld.y, (int)spawnPosWorld.z), block_GO.GetComponent<PhysicsObject>());
+            m_currentAnimator.SetTrigger("Place");
+            m_audioManager.PlayAudio(m_placeAudio);
         }
 
         private void Update()
         {
             if(Input.GetMouseButton(0))
                 PerformBreak();
+            if(Input.GetMouseButtonUp(0))
+                m_audioManager.StopAudio(m_breakAudio);
             // Left click spawn grass block for now
             if(Input.GetMouseButtonDown(1))
                 PerformPlace();

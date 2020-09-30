@@ -9,8 +9,17 @@ namespace Tantan
         [SerializeField] private float m_gravity = 0.5f;
         [SerializeField] private float m_jumpStrength = 0.9f;
         [SerializeField] private float m_moveSpeed = 0.3f;
+        [SerializeField] private Animator m_currentAnimator;
+        [SerializeField] private Transform m_modelOffsetTransform;
+        private Vector3 m_lastGroundedPosition;
         private Vector2 m_velocity;
         private Vector2Int m_previousStandingOn;
+        private bool m_isGrounded = true;
+
+        public void SetAnimator(Animator a_animator)
+        {
+            m_currentAnimator = a_animator;
+        }
        
         private void Update()
         {
@@ -21,9 +30,14 @@ namespace Tantan
                 m_previousStandingOn = BelowPlayer;
                 return;
             }
+            if(transform.position.y <= 0.6f)
+                transform.position = m_lastGroundedPosition;
             // Check if standing on block
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space) && m_isGrounded)
+            {
                 m_velocity.y = m_jumpStrength;
+                m_isGrounded = false;
+            }
                 
             if(Input.GetKey(KeyCode.A))
                 m_velocity.x = - m_moveSpeed;
@@ -32,7 +46,15 @@ namespace Tantan
             else
                 m_velocity.x = 0f;
                 
-
+            if(m_velocity.x != 0f)
+            {
+                m_currentAnimator.SetBool("IsRunning", true);
+                float moveOffset = 0f;
+                moveOffset = m_velocity.x < 0f?90f:-90f;
+                m_modelOffsetTransform.rotation = Quaternion.Lerp(m_modelOffsetTransform.rotation, Quaternion.Euler(0f, m_cameraController.GetAngle() + moveOffset, 0f), Time.deltaTime * 20.0f);
+            }
+            else
+                m_currentAnimator.SetBool("IsRunning", false);
 
             m_velocity.y -= Time.deltaTime * m_gravity;
             // Only check collision below if falling
@@ -49,8 +71,10 @@ namespace Tantan
                         // Depth change to the new location depth
                         int belowDepth = m_worldGridScriptable.WorldGrid.GetPhysicsDepthAtLocation(BelowPlayer);
                         SetWorldFromDepth(belowDepth);
+                        m_lastGroundedPosition = transform.position;
                     }
                     m_previousStandingOn = BelowPlayer;
+                    m_isGrounded = true;
                 }
             }
 
