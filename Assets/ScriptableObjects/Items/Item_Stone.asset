@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Stone
   m_EditorClassIdentifier: 
   Name: Stone
-  m_imageIcon: {fileID: 2800000, guid: 3cd35d372e709804ca312c9fb4df216e, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 5d7cbd17591e6fe46afa23ea2e902cf8, type: 3}
   BlockTexture: {fileID: 2800000, guid: 3cd35d372e709804ca312c9fb4df216e, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}

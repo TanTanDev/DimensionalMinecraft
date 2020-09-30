@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Iron
   m_EditorClassIdentifier: 
   Name: Iron
-  m_imageIcon: {fileID: 2800000, guid: c0281b5a043019943a5ebf688e3adff9, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 484b619fe4275b949ae0e33c9cc458ac, type: 3}
   BlockTexture: {fileID: 2800000, guid: c0281b5a043019943a5ebf688e3adff9, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}

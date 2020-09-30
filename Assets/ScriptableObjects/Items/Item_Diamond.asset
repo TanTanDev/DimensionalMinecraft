@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Diamond
   m_EditorClassIdentifier: 
   Name: Diamond
-  m_imageIcon: {fileID: 2800000, guid: 19432ec56a5d23843a396d16ca0550c4, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: cb420530b709abc4984e3e0c41aaf80a, type: 3}
   BlockTexture: {fileID: 2800000, guid: 19432ec56a5d23843a396d16ca0550c4, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}

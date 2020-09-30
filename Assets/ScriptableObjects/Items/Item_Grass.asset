@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Grass
   m_EditorClassIdentifier: 
   Name: Grass
-  m_imageIcon: {fileID: 2800000, guid: 68afa8ee650ecf3468ac2bd5539f2435, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 4f97daada7ac05b47ad21e13556b86fd, type: 3}
   BlockTexture: {fileID: 2800000, guid: 68afa8ee650ecf3468ac2bd5539f2435, type: 3}
   m_blockPrefab: {fileID: 7505103316295617035, guid: 8d9cfd0861f47ef42bb2094da5048e56,
     type: 3}

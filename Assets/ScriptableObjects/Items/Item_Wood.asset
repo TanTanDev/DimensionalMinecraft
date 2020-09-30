@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Wood
   m_EditorClassIdentifier: 
   Name: Wood
-  m_imageIcon: {fileID: 2800000, guid: 8c2d29d57347a684a981c58790fd1dea, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 6e9060643d7326c40be43d453746b6a5, type: 3}
   BlockTexture: {fileID: 2800000, guid: 8c2d29d57347a684a981c58790fd1dea, type: 3}
   m_blockPrefab: {fileID: 7505103316295617035, guid: 8d9cfd0861f47ef42bb2094da5048e56,
     type: 3}

@@ -25,6 +25,8 @@ namespace Tantan
                 ItemElement itemElement = Instantiate(m_itemPrefab, m_contentTransform);
                 itemElement.SetTexture(m_spawnItems[i].m_imageIcon);
                 itemElement.SetAmount(0);
+                int index = i;
+                itemElement.Button.onClick.AddListener(()=>{this.SetSelected(index);});
                 m_items.Add(new InventoryItem(m_spawnItems[i], itemElement));
             }
             if(m_items.Count > 0)

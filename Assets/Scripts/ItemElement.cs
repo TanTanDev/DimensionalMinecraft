@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class ItemElement : MonoBehaviour
 {
+    public Button Button; 
     [SerializeField] private Text m_text; 
     [SerializeField] private RawImage m_image; 
     [SerializeField] private GameObject m_selectedImage; 

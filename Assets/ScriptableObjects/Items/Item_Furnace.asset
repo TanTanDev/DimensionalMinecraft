@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Furnace
   m_EditorClassIdentifier: 
   Name: Furnace
-  m_imageIcon: {fileID: 2800000, guid: 0f8698cb28be6e04f807730e02a59030, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 337a7ef5e92e4314aa0d70c4f2314d2e, type: 3}
   BlockTexture: {fileID: 2800000, guid: 0f8698cb28be6e04f807730e02a59030, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Coal
   m_EditorClassIdentifier: 
   Name: Coal
-  m_imageIcon: {fileID: 2800000, guid: 7ba04d99c8e581149b31a4813165999e, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 21b79d3d87eeeae47b630c52c92c91e0, type: 3}
   BlockTexture: {fileID: 2800000, guid: 7ba04d99c8e581149b31a4813165999e, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}

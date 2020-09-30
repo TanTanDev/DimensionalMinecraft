@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_CraftingBench
   m_EditorClassIdentifier: 
   Name: CraftingBench
-  m_imageIcon: {fileID: 2800000, guid: 44c04d95c0f269e499e598cd5da10ee6, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 567d6052dd007584abcb3e3772469b79, type: 3}
   BlockTexture: {fileID: 2800000, guid: 44c04d95c0f269e499e598cd5da10ee6, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}

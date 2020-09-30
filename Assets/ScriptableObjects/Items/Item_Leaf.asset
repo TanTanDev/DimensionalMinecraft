@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_Leaf
   m_EditorClassIdentifier: 
   Name: Leaf
-  m_imageIcon: {fileID: 2800000, guid: f199d4530897f6340b20a699ca61a513, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 25cc565083d3e9d4c91fff9337b2856b, type: 3}
   BlockTexture: {fileID: 2800000, guid: f199d4530897f6340b20a699ca61a513, type: 3}
   m_blockPrefab: {fileID: 7505103316295617035, guid: 8d9cfd0861f47ef42bb2094da5048e56,
     type: 3}

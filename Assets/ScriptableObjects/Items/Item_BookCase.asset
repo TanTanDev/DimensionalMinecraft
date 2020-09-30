@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_BookCase
   m_EditorClassIdentifier: 
   Name: BookCase
-  m_imageIcon: {fileID: 2800000, guid: 9ec358b374438b543ac9d8a3c4e61bdb, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: ab82a96e6c7f7c145914788a1d6a0eeb, type: 3}
   BlockTexture: {fileID: 2800000, guid: 9ec358b374438b543ac9d8a3c4e61bdb, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item_WoodenPlank
   m_EditorClassIdentifier: 
   Name: WoodenPlank
-  m_imageIcon: {fileID: 2800000, guid: 56b193569398f374197c98dcc1feeb24, type: 3}
+  m_imageIcon: {fileID: 2800000, guid: 00a788ed3fd40c1419eb351aeb4c8488, type: 3}
   BlockTexture: {fileID: 2800000, guid: 56b193569398f374197c98dcc1feeb24, type: 3}
   m_blockPrefab: {fileID: 2672138479846102990, guid: a41dcfb429a895247ab7039ff02ec86a,
     type: 3}
