@@ -122,12 +122,12 @@ namespace Tantan
                 }
                 case Rotation.R_90:
                 {
-                    a_current = new Vector3((WorldGrid.DEFAULT_WORLD_SIZE-1.0f)-a_current.z, a_current.y, a_current.x);
+                    a_current = new Vector3(a_current.z, a_current.y, a_current.x);
                     break;
                 }
                 case Rotation.R_180:
                 {
-                    a_current = new Vector3((WorldGrid.DEFAULT_WORLD_SIZE-1.0f)-a_current.x, a_current.y, a_current.z);
+                    a_current = new Vector3(a_current.x, a_current.y, a_current.z);
                     break;
                 }
                 case Rotation.R_270:

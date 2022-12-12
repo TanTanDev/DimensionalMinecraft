@@ -29,12 +29,12 @@ namespace Tantan
             PhysicsObject physicsObject = m_worldGrid.GetPhysicsObjectAtLocation(new Vector2Int((int)(gridPosition.x + 0.5f), (int)(gridPosition.y + 0.5f)));
             if(physicsObject == null)
             {
-                m_audioManager.StopAudio(m_breakAudio);
+                //m_audioManager.StopAudio(m_breakAudio);
                 return;
             }
             physicsObject.OnHold();
             m_currentAnimator.SetTrigger("Place");
-            m_audioManager.PlayAudio(m_breakAudio, true);
+            m_audioManager.PlayAudio(m_breakAudio/*, true*/);
         }
 
         private void PerformPlace()
@@ -87,8 +87,8 @@ namespace Tantan
         {
             if(Input.GetMouseButton(0))
                 PerformBreak();
-            if(Input.GetMouseButtonUp(0))
-                m_audioManager.StopAudio(m_breakAudio);
+            // if(Input.GetMouseButtonUp(0))
+            //     m_audioManager.StopAudio(m_breakAudio);
             // Left click spawn grass block for now
             if(Input.GetMouseButtonDown(1))
                 PerformPlace();
